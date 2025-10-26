@@ -11,7 +11,7 @@ namespace RabbitMQ.Publisher
     {
         static async Task Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "localhost", Port = 8081 };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 

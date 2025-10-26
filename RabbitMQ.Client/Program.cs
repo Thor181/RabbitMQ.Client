@@ -8,7 +8,7 @@ namespace RabbitMQ.Client
     {
         static async Task Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "localhost", Port= 8081 };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
@@ -27,14 +27,7 @@ namespace RabbitMQ.Client
         private static void Consumer_Received(object? sender, BasicDeliverEventArgs e)
         {
             var path = Encoding.UTF8.GetString(e.Body.ToArray());
-            var proc = new Process();
-            proc.StartInfo = new ProcessStartInfo()
-            {
-                UseShellExecute = true,
-                FileName = path
-            };
-
-            proc.Start();
+            Console.WriteLine(path);
         }
     }
 }
