@@ -18,12 +18,12 @@ namespace RabbitMQ.Publisher
             channel.QueueDeclare(queue: "myQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
             
-            var messageRight = @"E:\Desktop\В Красноярский краевой суд через.docx";
+            var messageRight = @"E:\Desktop\File.docx";
             PublishMessage(channel, messageRight);
             Console.WriteLine($" [x] Sent {messageRight}");
             await Task.Delay(2000);
 
-            var messageRight2 = @"E:\Desktop\Отзыв Торгашин А.А. 2-603_2021 .pdf";
+            var messageRight2 = @"E:\Desktop\File.pdf";
             PublishMessage(channel, messageRight2);
             Console.WriteLine($" [x] Sent {messageRight2}");
             await Task.Delay(2000);
